@@ -10,30 +10,30 @@
 #book:before {
   width: 1%;
   height: 100%;
-  background: #222;
+  background: #C71585; /* Medium violet red for spine */
   content: '';
   position: absolute;
   left: 49%;
   top: 0;
-  box-shadow: 0 10px 10px rgba(0,0,0,.75);
-  outline: 1px solid black;
+  box-shadow: 0 5px 5px rgba(0,0,0,.5);
+  outline: 1px solid #C71585;
 }
 
 .page {
   width: 50%;
   height: 100%;
-  background: radial-gradient(circle at 0% 100%, #777, #ddd 70%);
-  outline: 1px solid black;
-  box-shadow: 5px 10px 10px rgba(0,0,0,.15);
+  background: linear-gradient(to bottom, #FFB6C1, #FFC0CB); /* Soft pink gradient */
+  outline: 1px solid #FF69B4;
+  box-shadow: 3px 5px 5px rgba(0,0,0,.1);
   position: absolute;
   left: 50%;
   top: 0;
   transform-origin: 0% 50%;
-  transition: z-index .01s linear 1s, transform 2s linear;
+  transition: transform 3s ease-in-out, z-index 0.1s ease; /* Slower and smoother flip */
   z-index: 5;
   cursor: pointer;
 
-  font-family: monospace;
+  font-family: 'Georgia', serif; /* More elegant font */
   text-align: center;
   line-height: 50vh;
 }
@@ -46,12 +46,12 @@
   top: 0;
   left: 0;
 
-  font-family: monospace;
+  font-family: 'Georgia', serif;
   text-align: center;
   line-height: 50vh;
 
   opacity: 0;
-  transition: opacity .1s linear 1s;
+  transition: opacity 0.5s ease-in-out; /* Smoother opacity change, synced with transform */
 }
 
 .front {
@@ -99,46 +99,50 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: azure;
-  background-image: linear-gradient(-45deg, tomato, purple);
+  background: linear-gradient(135deg, #FFF0F5, #FFE4E1); /* Soft blush and misty rose */
 }
-
 
 /* ===========================
    PAGE 1
 =========================== */
 #page1 .front {
-  font-size: 2vh;
-  letter-spacing: 2vh;
-  font-weight: 900;
-  text-align: right;
-  line-height: 50vh;
-  background: radial-gradient(circle at 70% 50%, black 50%, #222 40%);
-  color: magenta;
-  animation: cover 10s linear infinite;
-}
+  font-size: 3vh;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(to right, #C71585, #DB7093); /* Medium violet red to pale violet red */
+  color: #FFFFFF;
+  /* No animation for simplicity */
 
-@keyframes cover {
-  20% { color: lime; }
-  40% { color: dodgerblue; }
-  60% { color: gold; }
-  80% { color: cyan; }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1vh;
+  line-height: 1.4;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
 }
 
 #page1 .back {
-  font-size: 25vh;
-  color: white;
-  text-shadow: -10px 0 magenta, 10px 0 cyan;
-  background: #222;
-  animation: a 3s linear infinite;
-}
+  font-size: 2vh;
+  color: #FFFFFF;
+  background: linear-gradient(to bottom, #C71585, #DB7093);
+  /* No animation for simplicity */
 
-@keyframes a {
-  45% { color: white; }
-  50% { color: #222; }
-  55% { color: white; }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1vh;
+  line-height: 1.4;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
 }
-
 
 /* ===========================
    PAGE 2
@@ -146,238 +150,141 @@ body {
 #page2 .front {
   font-size: 25vh;
   font-weight: 900;
-  font-family: serif;
-  background: dodgerblue;
-  animation: L 10s linear infinite;
-}
+  background: #FFB6C1; /* Light pink */
+  color: #C71585; /* Medium violet red */
+  /* No animation for simplicity */
 
-@keyframes L {
-  50% { color: dodgerblue; background: white; }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 #page2 .back {
-  font-size: 25vh;
-  font-weight: 100;
-  font-family: sans-serif;
-  text-shadow: 5px 5px 0 white, 7px 7px 0;
-  background: white;
-  color: tomato;
-  animation: p 5s linear infinite;
-}
+  font-size: 2vh;
+  font-weight: 400;
+  background: #FFFFFF;
+  color: #DB7093; /* Pale violet red */
+  /* No animation for simplicity */
 
-@keyframes p {
-  50% { text-shadow: 13px 13px 0 white, 16px 16px 0; }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1vh;
+  line-height: 1.4;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
 }
-
 
 /* ===========================
    PAGE 3
 =========================== */
 #page3 .front {
-  background: #222;
-  color: lime;
+  background: #C71585; /* Medium violet red */
+  color: #FFFFFF;
   font-size: 25vh;
   font-weight: 900;
-  font-family: serif;
   overflow: hidden;
-}
 
-#page3 .front:before {
-  content: '';
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: radial-gradient(circle, #222 40%, transparent 40%);
-  background-size: .5vh .5vh;
-  background-position: -.5vh;
-  animation: h 15s linear infinite;
-}
-
-@keyframes h {
-  100% { background-position: .5vh 0%; }
-}
-
-#page3 .front:after {
-  content: 'H';
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: -1px;
-  left: -10px;
-  color: #222;
-  text-shadow: -1px 0 lime, -1px -1px lime, -1px 1px lime;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 #page3 .back {
-  background: #222;
-  color: white;
-  font-size: 25vh;
-  font-weight: 900;
-  font-family: serif;
-  text-shadow: 
-    5px 0 rgba(255,0,0,.5),
-    10px 0 rgba(255,0,0,.4),
-    15px 0 rgba(255,0,0,.3),
-    20px 0 rgba(255,0,0,.2),
-    25px 0 rgba(255,0,0,.1);
+  background: #C71585;
+  color: #FFFFFF;
+  font-size: 2vh;
+  font-weight: 700;
+  
   overflow: hidden;
-}
-
-#page3 .back:before {
-  content: 'A';
-  width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   text-align: center;
-  line-height: 17vh;
-  position: absolute;
-  transform: scaleY(-1);
-  opacity: .25;
-  animation: aa 1s linear infinite;
+  padding: 1vh;
+  line-height: 1.4;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: normal;
 }
-
-@keyframes aa {
-  50% { left: 5px; }
-}
-
-#page3 .back:after {
-  content: '';
-  width: 100%;
-  height: 20vh;
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  background: linear-gradient(to top, #222 50%, transparent);
-}
-
 
 /* ===========================
    PAGE 4
 =========================== */
 #page4 {
-  background: white;
+  background: #FFFFFF;
   overflow: hidden;
 }
 
 #page4 .front {
-  width: 25%;
-  height: 20vh;
-  background: gold;
+  width: 30%;
+  height: 25vh;
+  background: linear-gradient(45deg, #FFD700, #FFA500); /* Soft gold to orange */
   position: absolute;
-  top: 15vh;
-  left: 30%;
-  color: transparent;
-  transform: skewY(-10deg) skewX(-10deg);
-  mix-blend-mode: multiply;
-  animation: b 10s linear infinite;
-}
-
-@keyframes b {
-  50% { filter: hue-rotate(360deg); }
-}
-
-#page4 .front:before {
-  content: '';
-  width: 200%;
-  height: 40%;
-  background: violet;
-  position: absolute;
-  top: 15%;
-  left: -10%;
-  border-radius: 0 50px 50px 0;
-  mix-blend-mode: multiply;
-  transform: skewY(10deg);
-}
-
-#page4 .front:after {
-  content: '';
-  width: 200%;
-  height: 40%;
-  background: cyan;
-  position: absolute;
-  top: 55%;
-  left: -10%;
-  border-radius: 0 50px 50px 0;
-  mix-blend-mode: multiply;
-  transform: skewY(10deg);
+  top: 12vh;
+  left: 25%;
+  border-radius: 50%;
+  /* No animation for simplicity */
 }
 
 #page4 .back {
-  height: calc(100% + 10px);
-  background:
-    linear-gradient(#fff 50%, transparent 0) 0 0,
-    radial-gradient(circle closest-side, #fff 53%, transparent 0) 0 0,
-    radial-gradient(circle closest-side, #fff 50%, transparent 0) 55px 0 #48B;
-  background-size: 110px 50vh;
-  background-repeat: repeat-x;
+  background: linear-gradient(to bottom, #FFFFFF, #F0F8FF); /* White to alice blue */
+  color: #C71585;
+  font-size: 2vh;
+  font-weight: 700;
 
-  color: white;
-  font-size: 25vh;
-  font-weight: 900;
-  font-family: serif;
-  text-shadow: -1px -1px #48B, 1px -1px #48B, 1px 1px #48B, -1px 1px #48B;
-  animation: bob 10s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 1vh;
+  line-height: 1.4;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
 }
-
-@keyframes bob {
-  25% { top: -10px; }
-  50% { top: 0; }
-  75% { top: -10px; }
-}
-
-#page4 .back:before {
-  content: '';
-  position: absolute;
-  top: 25%;
-  left: 40%;
-  width: 2.5vh;
-  height: 5vh;
-  background: white;
-  box-shadow: 0 0 2px black;
-  border-radius: 75% 0 75% 0;
-}
-
-#page4 .back:after {
-  content: '';
-  position: absolute;
-  top: 24%;
-  left: 43%;
-  width: 2vh;
-  height: 2vh;
-  background: radial-gradient(circle at 65% 45%, gray 15%, white 15%);
-  box-shadow: 0 0 2px black;
-  border-radius: 75% 75% 0 75%;
-  transform: rotate(-45deg);
-}
-
 
 /* ===========================
    PAGE 5
 =========================== */
 #page5 .front {
-  color: gold;
+  color: #FFD700; /* Gold */
   font-size: 25vh;
   font-weight: 900;
-  font-family: serif;
-  background: #222;
-  text-shadow: 24px 24px purple;
-  animation: slide 10s linear infinite;
-}
+  background: #C71585;
+  /* No animation for simplicity */
 
-@keyframes slide {
-  25% { text-shadow: -24px 24px purple; }
-  50% { text-shadow: -24px -24px purple; }
-  75% { text-shadow: 24px -24px purple; }
-  100% { text-shadow: 24px 24px purple; }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 #page5 .back {
   font-size: 2vh;
-  letter-spacing: 2vh;
-  font-weight: 900;
-  padding-left: 2vh;
-  text-align: left;
-  line-height: 50vh;
-  background: radial-gradient(circle at 30% 50%, black 50%, #222 40%);
-  color: magenta;
-  animation: cover 10s linear infinite;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(to right, #C71585, #DB7093);
+  color: #FFFFFF;
+  /* No animation for simplicity */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1vh;
+  line-height: 1.4;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
 }
