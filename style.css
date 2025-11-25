@@ -1,290 +1,278 @@
+/* ===========================
+   IMPORT FONTS
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+
+/* ===========================
+   BOOK WRAPPER — FIXED RATIO
+=========================== */
 #book {
-  width: 50vw;
-  height: 50vh;
+  aspect-ratio: 3 / 2;
+  width: 80vw;
+  min-width: 320px;
+  max-width: 600px;
   position: absolute;
-  left: 25vw;
-  top: 25vh;
-  perspective: 75vw;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  perspective: 2500px;
+  background: transparent;
+  transform-style: preserve-3d;
+  cursor: move;
 }
 
-#book:before {
-  width: 1%;
+#book::before {
+  content: '';
+  opacity: 0;
+}
+
+
+/* Responsif */
+@media (max-width: 768px) {
+  #book { width: 90vw; min-width: 280px; }
+}
+@media (min-width: 1024px) {
+  #book { width: 70vw; max-width: 700px; }
+}
+
+/* Pembatas tengah */
+#book > :first-child:before {
+  width: 2%;
   height: 100%;
-  background: #C71585; /* Medium violet red for spine */
+  background: linear-gradient(to bottom, #DAA520, #B8860B);
   content: '';
   position: absolute;
   left: 49%;
   top: 0;
-  box-shadow: 0 5px 5px rgba(0,0,0,.5);
-  outline: 1px solid #C71585;
+  box-shadow: 0 5px 10px rgba(218,165,32,0.3);
+  border-radius: 2px;
 }
 
+/* ===========================
+   PAGE BASE
+=========================== */
 .page {
   width: 50%;
   height: 100%;
-  background: linear-gradient(to bottom, #FFB6C1, #FFC0CB); /* Soft pink gradient */
-  outline: 1px solid #FF69B4;
-  box-shadow: 3px 5px 5px rgba(0,0,0,.1);
+  background: linear-gradient(135deg, #F5F5F5, #E6E6FA);
+  outline: 1px solid #DDA0DD;
+  box-shadow: 3px 5px 10px rgba(0,0,0,0.1), inset 0 0 5px rgba(255,255,255,0.3);
   position: absolute;
   left: 50%;
   top: 0;
   transform-origin: 0% 50%;
-  transition: transform 3s ease-in-out, z-index 0.1s ease; /* Slower and smoother flip */
+  transition: transform 2s cubic-bezier(0.25,0.46,0.45,0.94);
   z-index: 5;
   cursor: pointer;
-
-  font-family: 'Georgia', serif; /* More elegant font */
-  text-align: center;
-  line-height: 50vh;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  border-radius: 3px 0 0 3px;
+  font-family: 'Dancing Script', cursive;
 }
 
+.page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(218,165,32,0.05), rgba(138,43,226,0.05));
+  transform: translateZ(-5px);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+  pointer-events: none;
+  border-radius: 3px 0 0 3px;
+}
+
+/* ===========================
+   FRONT & BACK
+=========================== */
 .front,
 .back {
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 0;
-  left: 0;
-
-  font-family: 'Georgia', serif;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  line-height: 50vh;
-
+  padding: 3vh;
+  box-sizing: border-box;
   opacity: 0;
-  transition: opacity 0.5s ease-in-out; /* Smoother opacity change, synced with transform */
+  transition: opacity 0.6s ease-in-out;
+  font-family: 'Dancing Script', cursive;
+  color: #4B0082;
+  text-shadow: 0.5px 0.5px 1px rgba(255,255,255,0.3);
 }
 
-.front {
-  opacity: 1;
-}
+.front { opacity: 1; }
 
 .back {
   transform: scaleX(-1);
+  background: linear-gradient(135deg, #FAF0E6, #F5DEB3);
 }
 
-input {
-  visibility: hidden;
-}
+/* Hidden checkbox */
+input { visibility: hidden; }
 
 label {
   width: 100%;
   height: 100%;
   z-index: 99;
   position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0;
-  padding: 0;
+  inset: 0;
 }
 
+/* Flip effect */
 input:checked + .page {
   transform: rotateY(-180deg);
 }
 
-input:checked + .page .front {
-  opacity: 0;
-}
+input:checked + .page .front { opacity: 0; }
+input:checked + .page .back { opacity: 1; }
 
-input:checked + .page .back {
-  opacity: 1;
-}
-
+/* Z-index per halaman */
 #five:checked + .page { z-index: 5; }
 #four:checked + .page { z-index: 4; }
 #three:checked + .page { z-index: 3; }
 #two:checked + .page { z-index: 2; }
 #one:checked + .page { z-index: 1; }
 
+/* ===========================
+   BACKGROUND IMAGE GLOBAL
+=========================== */
 body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(135deg, #FFF0F5, #FFE4E1); /* Soft blush and misty rose */
+  background: url("images/roses.png") no-repeat center center fixed,
+              linear-gradient(135deg, #F0F8FF, #E6E6FA);
+  background-size: cover;
+  font-family: 'Dancing Script', cursive;
+}
+
+/* Overlay blur lembut */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(3px);
+  z-index: -1;
 }
 
 /* ===========================
-   PAGE 1
+   IMAGE FIX
+=========================== */
+.page .front img,
+.page .back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(0.1) contrast(1.05) brightness(0.95);
+  border-radius: 3px 0 0 3px;
+}
+
+/* ===========================
+   PAGE SPECIFIC
 =========================== */
 #page1 .front {
+  background: linear-gradient(to right, #8B7D6B, #DDA0DD);
+  color: #F5F5F5;
   font-size: 3vh;
   font-weight: 700;
-  text-align: center;
-  background: linear-gradient(to right, #C71585, #DB7093); /* Medium violet red to pale violet red */
-  color: #FFFFFF;
-  /* No animation for simplicity */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 1vh;
-  line-height: 1.4;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow: hidden;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 #page1 .back {
+  background: linear-gradient(to bottom, #8B7D6B, #DDA0DD);
+  color: #F5F5F5;
   font-size: 2vh;
-  color: #FFFFFF;
-  background: linear-gradient(to bottom, #C71585, #DB7093);
-  /* No animation for simplicity */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 1vh;
-  line-height: 1.4;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow: hidden;
-}
-
-/* ===========================
-   PAGE 2
-=========================== */
-#page2 .front {
-  font-size: 25vh;
-  font-weight: 900;
-  background: #FFB6C1; /* Light pink */
-  color: #C71585; /* Medium violet red */
-  /* No animation for simplicity */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 #page2 .back {
+  background: linear-gradient(135deg, #F5F5F5, #F0F8FF);
+  color: #8B7D6B;
   font-size: 2vh;
-  font-weight: 400;
-  background: #FFFFFF;
-  color: #DB7093; /* Pale violet red */
-  /* No animation for simplicity */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 1vh;
-  line-height: 1.4;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow: hidden;
-}
-
-/* ===========================
-   PAGE 3
-=========================== */
-#page3 .front {
-  background: #C71585; /* Medium violet red */
-  color: #FFFFFF;
-  font-size: 25vh;
-  font-weight: 900;
-  overflow: hidden;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 #page3 .back {
-  background: #C71585;
-  color: #FFFFFF;
+  background: linear-gradient(to bottom, #DDA0DD, #F5DEB3);
+  color: #F5F5F5;
   font-size: 2vh;
-  font-weight: 700;
-  
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 1vh;
-  line-height: 1.4;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  white-space: normal;
-}
-
-/* ===========================
-   PAGE 4
-=========================== */
-#page4 {
-  background: #FFFFFF;
-  overflow: hidden;
-}
-
-#page4 .front {
-  width: 30%;
-  height: 25vh;
-  background: linear-gradient(45deg, #FFD700, #FFA500); /* Soft gold to orange */
-  position: absolute;
-  top: 12vh;
-  left: 25%;
-  border-radius: 50%;
-  /* No animation for simplicity */
 }
 
 #page4 .back {
-  background: linear-gradient(to bottom, #FFFFFF, #F0F8FF); /* White to alice blue */
-  color: #C71585;
+  background: linear-gradient(to bottom, #FFFFFF, #F0F8FF);
+  color: #8B7D6B;
   font-size: 2vh;
-  font-weight: 700;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 1vh;
-  line-height: 1.4;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow: hidden;
-}
-
-/* ===========================
-   PAGE 5
-=========================== */
-#page5 .front {
-  color: #FFD700; /* Gold */
-  font-size: 25vh;
-  font-weight: 900;
-  background: #C71585;
-  /* No animation for simplicity */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 #page5 .back {
+  background: linear-gradient(to right, #8B7D6B, #DDA0DD);
+  color: #F5F5F5;
   font-size: 2vh;
-  font-weight: 700;
-  text-align: center;
-  background: linear-gradient(to right, #C71585, #DB7093);
-  color: #FFFFFF;
-  /* No animation for simplicity */
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 1vh;
-  line-height: 1.4;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  white-space: normal;
-  overflow: hidden;
+/* ===========================
+   PREMIUM EFFECTS
+=========================== */
+.page {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              box-shadow 0.6s ease;
+}
+
+.page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(255,255,255,0.3), rgba(218,165,32,0.1), transparent);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+input:checked + .page {
+  transform: rotateY(-180deg);
+  box-shadow: -15px 10px 25px rgba(0,0,0,0.2);
+}
+
+.back {
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+.page:hover {
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* ===========================
+   MUSIC BUTTON
+=========================== */
+#musicBtn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(218, 165, 32, 0.2));
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  border: 1px solid rgba(218, 165, 32, 0.3);
+  color: #8B7D6B;
+  font-family: 'Dancing Script', cursive;
+  text-shadow: 0.5px 0.5px 1px rgba(255,255,255,0.3);
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+#musicBtn:hover {
+  background: linear-gradient(135deg, rgba(218,165,32,0.3), rgba(138,43,226,0.2));
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
